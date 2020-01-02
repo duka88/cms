@@ -8,17 +8,7 @@
     </div>
 
   	<div class="card-body">
-        @if($errors->any())
-
-          <div class="alert alert-danger">
-          	<ul class="list-group">
-          		@foreach($errors->all() as $error)
-                  <li class="list-group-item text-danger">{{$error}}</li>
-          		@endforeach
-          	</ul>
-          </div>
-
-        @endif
+     @include('partials.errors')
 
   		<form 
   		action="{{ isset($post) ? route('posts.update', $post->id) : route('posts.store')}}" 
@@ -26,10 +16,13 @@
        
            @csrf
             
-            @if(isset($Post))
+            @if(isset($post))
                @method('PUT')
             @endif   
-      
+
+         @if(isset($post))
+              <input type="hidden" name="id" value="{{$post->id}}">
+            @endif 
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" value="{{ isset($post) ? $post->name : ''}}" 
@@ -51,26 +44,89 @@
 
         <div class="form-group">
           <label for="meta_description">Meta Description</label>
-          <textarea rows='3' value="{{ isset($post) ? $post->description : ''}}" 
-           id="meta_description" class="form-control" name="meta_description"></textarea>
+          <textarea rows='3' 
+           id="meta_description" class="form-control" name="meta_description">{{ isset($post) ? $post->meta_description : ''}}
+           </textarea>
         </div>
 
         <div class="form-group">
           <label for="content">Content</label>         
           
-           <textarea  id="content" name="content" class="form-control"></textarea> 
+           <textarea  id="content" name="content" class="form-control">
+             @if(isset($post)) 
+               {{ $post->content }}
+             @endif  
+           </textarea> 
+        </div>
+
+        <div class="form-group">
+          <label for="category_id">Category</label>
+          <select type="date"  
+           id="category_id" class="form-control" name="category_id">
+             
+             @foreach($categories as $category)
+
+             <option value="{{$category->id}}"
+
+               @if(isset($post))
+
+                 @if($category->id == $post->category_id)
+
+                 selected
+
+               @endif
+             @endif
+
+              >
+               {{$category->name}}
+             </option>
+
+             @endforeach
+
+           </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tag_id">Tags</label>
+          <select type="date"  
+           id="tag_id" class="form-control" name="tag_id[]" multiple>
+             
+             @foreach($tags as $tag)
+
+             <option value="{{$tag->id}}"
+
+               @if(isset($post))
+
+                 @if($post->hasTag($tag->id))
+
+                 selected
+
+               @endif
+             @endif
+
+              >
+               {{$tag->name}}
+             </option>
+
+             @endforeach
+
+           </select>
         </div>
 
         <div class="form-group">
           <label for="published_at">Published at</label>
-          <input type="text" value="{{ isset($post) ? $post->published_at : ''}}" 
+          <input type="date" value="{{ isset($post) ? date('Y-m-d', strtotime($post->published_at) ) : date('Y-m-d', strtotime(now()))}}" 
            id="published_at" class="form-control" name="published_at">
         </div>
 
         <div class="form-group">
-          <label for="image">Feature Image</label>
-          <input type="file" value="{{ isset($post) ? $post->image : ''}}" 
-           id="image" class="form-control" name="image">
+          <label id="imageInput" class=" d-flex justify-content-center align-items-center " for="image">Add Feature Image
+              <input type="file" value="{{ isset($post) ? $post->image : ''}}" 
+               id="image" class="form-control" name="image" style="display: none">
+               <img id="output"
+                src="{{ isset($post) ? asset('/storage/'.$post->image) : ''}}" alt="" >
+               <p id="cancel">X</p>
+           </label>
         </div>
 
 
@@ -82,6 +138,7 @@
   		</form>
   	</div>
   </div>
+  
 
 @endsection  
 
@@ -103,7 +160,7 @@
             "insertdatetime media nonbreaking save table contextmenu directionality",
             "emoticons template paste textcolor colorpicker textpattern"
         ],
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media code",
            relative_urls: false,
     file_browser_callback : function(field_name, url, type, win) {
       var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
@@ -120,7 +177,7 @@
         file : cmsURL,
         title : 'Filemanager',
         width : x * 0.8,
-        height : y * 0.8,
+        height : '500px',
         resizable : "yes",
         close_previous : "no"
       });
@@ -129,7 +186,35 @@
 
   tinymce.init(editor_config);
 
-});
+
+
+ 
+ 
+     let reader = new FileReader();
+     let  img = document.getElementById('imageInput');
+     let cancel = document.getElementById('cancel');
+     let  output = document.getElementById('output');
+     const original = output.src; 
+     
+    
+     img.addEventListener('change',  function(event) {
+       let  input = event.target;
+
+       reader.readAsDataURL(input.files[0]);
+        reader.onload = function(){
+          let  dataURL = reader.result;         
+          output.src = dataURL;
+        };
+      
+    });   
+
+    cancel.addEventListener('click', (e)=>{ 
+        e.preventDefault();
+        output.src = original;
+    });  
+
+
+  }); 
   </script>
 @endsection 
 

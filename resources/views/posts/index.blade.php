@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
- 
-  <div class="d-flex justify-content-end mb-1">
+
+  <div class="d-flex justify-content-between mb-1">
+     <form class="d-flex" action="{{route('posts.index')}}" method="GET">
+       <input class="form-control" type="text" name="search" placeholder="Search"
+        value="{{request()->query('search')}}">
+        <button type="submit" class="btn btn-success ml-2">Search</button>
+     </form>
      <a href="{{ route('posts.create')}}" class="btn btn-success ">Add Post</a>
   </div>
 
@@ -13,27 +18,46 @@
   			<thead>
   				<th>#</th>
   				<th>Name</th>
+          <th>Category</th>
   				<th></th>
   				<th></th>
   			</thead>
   			<tbody>
 
-  		 	@foreach($posts as $key=>$post)  				
+  		 	@forelse($posts as $key=>$post)  				
   				<tr>
   					<td>
   						{{$key+1}}
   					</td>
   					<td>
   						{{$post->name}}
+
   					</td>
+            <td>
+              <a href="{{route('posts.category', $post->category->id )}}">
+               {{$post->category->name}}
+              </a>             
+            </td>
   					<td>
              @if(!$post->trashed())              
-    						<a href="{{ route('posts.edit', $post->id)}}" class="btn btn-info btn-sm">
+    						<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info btn-sm">
     						Edit</a>
+
+              @else      
+                <form action="{{ route('post.restore', $post->id) }}" method="POST">
+
+                  @csrf
+                  @method('PUT')
+                  
+                   <button type="submit" class="btn btn-info btn-sm text-white">
+                Restore</button>
+                </form>        
+               
+
               @endif
   					</td>
   					<td>
-              <form action="{{ route('posts.destroy', $post->id)}}" method="POST">
+              <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                    <button type="submit" class="btn btn-danger btn-sm " >
@@ -43,43 +67,20 @@
   					
   					</td>
   				</tr>
-  			@endforeach	
+         @empty
+          
+          <h3>No results </h3>
+
+  			@endforelse
   			</tbody>
   		</table> 
 
 
-			<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document">
-                 <form action="" method="POST" id="deleteForm">
-
-                 	 @csrf
-                 	 @method('DELETE')
-
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h5 class="modal-title" id="deleteModalLabel">Delete post</h5>
-				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				          <span aria-hidden="true">&times;</span>
-				        </button>
-				      </div>                 
-				      <div class="modal-body">
-				       <h3 class="text-center font-weight-bold">
-				       	  Are You Shure
-				       </h3>
-				      </div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				        <button type="submit" class="btn btn-primary">Delete</button>
-				      </div>
-				    </div>
-                </form>
-			  </div>
-			</div>
+			
 
 
 
-
-
+    {{$posts->appends(['search' => request()->query('search')])->links()}}
   	</div>
   </div>
 

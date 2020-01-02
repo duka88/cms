@@ -1,0 +1,39 @@
+#imageInput {
+    width: 200px;
+    height: 200px;
+    border: 1px solid;
+    color: #ced4da;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+    overflow: hidden;
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    #cancel {
+        position: absolute;
+        background: #fff;
+        border: 2px solid;
+        border-radius: 50px;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        top: 5px;
+        right: 5px;
+        z-index: 999;
+    }
+}

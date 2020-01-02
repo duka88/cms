@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Post\PostCreateRequest;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Post\UpdatePostRequest;
 use App\Post;
+use App\Tag;
+use App\Category;
 
 class PostController extends Controller
 {
+
+
+   public function _construct(){
+
+     // $this->middleware('categotyCount')->only(['create']);
+   }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +25,18 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+
+        $search = request()->query('search');
+
+       if($search){
+         
+         $posts = Post::where("name", "LIKE", "%{$search}%")->paginate(15);
+       }else{
+         $posts = Post::paginate(15);
+       }
+
+
+        
 
         return view('posts.index')->with('posts', $posts);
     }
@@ -28,7 +48,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+        $tags = Tag::all();
+
+        return view('posts.create')->with('categories', $categories)->with('tags', $tags);
     }
 
     /**
@@ -41,16 +64,20 @@ class PostController extends Controller
     {
        $image = $request->image->store('posts');
 
-       Post::create([
+       $post = Post::create([
             'title' => $request->title,
             'name' => $request->name,
             'slug' => $request->slug,
             'meta_description' => $request->meta_description,
             'content' => $request->content,
-            'image' => $image,
+            'image' => $image,            
             'category_id' => $request->category_id,
             'published_at' => $request->published_at,
        ]);
+
+       if($request->tag_id){
+          $post->tags()->attach($request->tag_id);
+       }
        
         session()->flash('success', 'Post created successfully.');
 
@@ -75,9 +102,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $categories = Category::all();
+        $tags = Tag::all();
+
+         return view('posts.create')->with('post', $post)->with('categories', $categories)->with('tags', $tags);;
     }
 
     /**
@@ -87,9 +117,34 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(UpdatePostRequest $request, Post $post){
+
+ 
+   
+        $data = $request->only([ 
+            'title', 'name', 'slug', 'meta_description',
+            'content', 'image', 'category_id', 'published_at', 'category_id' ]);
+
+        if($request->hasFile('image')){
+
+            $image = $request->image->store('posts');
+            $post->deleteImage();
+            $data['image'] = $image;
+        }
+
+       
+        $post->update($data);
+
+      if($request->tag_id){
+          $post->tags()->sync($request->tag_id);
+       }
+         
+        session()->flash('success', 'Post updated successfully.');
+
+        return redirect(route('posts.index'));
+        
+
+
     }
 
     /**
@@ -106,7 +161,7 @@ class PostController extends Controller
        if($post->trashed()){
           $post->forceDelete();
 
-          Storage::delete($post->image);
+          $post->deleteImage();
 
            session()->flash('success', 'Post deleted successfully.');
        }else{        
@@ -121,8 +176,26 @@ class PostController extends Controller
 
     public function trashed()
     {
-       $posts = Post::onlyTrashed()->get();
+       $posts = Post::onlyTrashed()->paginate(15);
 
         return view('posts.index')->with('posts', $posts);
+    }
+
+    public function restore($id){
+
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+
+        $post->restore();
+
+        session()->flash('success', 'Post restored successfully.');
+
+        return redirect(route('posts.index'));
+
+    }
+
+    public function category(Category $category){
+
+      
+        return view("posts.index")->with('posts', $category->posts()->paginate(15));
     }
 }

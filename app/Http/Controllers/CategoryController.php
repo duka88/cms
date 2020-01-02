@@ -16,9 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+         $categories = Category::paginate(15);
 
-        return view('categories.index')->with('categories', Category::all());
+        return view('categories.index')->with('categories',  $categories);
     }
 
     /**
@@ -102,6 +102,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+
+       if($category->posts->count() > 0){
+          session()->flash('error', "Can't delete category while have posts");
+
+          return redirect()->back();
+
+       }
+
        $category->delete();
 
         session()->flash('success', 'Category deleted successfully.');

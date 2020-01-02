@@ -28,6 +28,7 @@ class PostCreateRequest extends FormRequest
            'slug' => 'required|unique:posts',
            'name' => 'required|unique:posts',
            'meta_description' => 'required',
+           'category_id' => 'required',
            'content' => 'required',
 
         ];
