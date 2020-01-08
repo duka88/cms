@@ -15,6 +15,6 @@ class MailController extends Controller
         'body' => $request->body
        ];
    
-    Mail::to('your_receiver_email@gmail.com')->send(new P8Mail($details));
+    Mail::to('djankov88@gmail.com')->send(new P8Mail($details));
     }
 }
