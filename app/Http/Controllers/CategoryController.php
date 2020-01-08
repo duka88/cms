@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Http\Resources\CategoryResource;
 
 use Illuminate\Http\Request;
 
@@ -19,6 +20,26 @@ class CategoryController extends Controller
          $categories = Category::paginate(15);
 
         return view('categories.index')->with('categories',  $categories);
+    }
+
+     public function all_categories(){
+
+        $category = Category::all();
+
+        return CategoryResource::collection($category);
+    }
+    
+     public function api_store(CreateCategoryRequest $request){
+        
+
+       $category =  Category::create([
+           'name' => $request->name
+        ]);
+
+       
+        return new CategoryResource($category);
+
+
     }
 
     /**

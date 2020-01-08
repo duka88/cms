@@ -22,9 +22,15 @@ Auth::routes();
 Route::middleware(['auth', 'IsAdmin'])->group(function(){
 
 	
-   Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
 	Route::resource('categories', 'CategoryController');
+	Route::post('store_category', 'CategoryController@api_store');
+	Route::get('all_categories', 'CategoryController@all_categories');
+
 	Route::resource('tags', 'TagController');
+	Route::post('store_tags', 'TagController@api_store');
+	Route::get('all_tags', 'TagController@all_tags');
+
 	Route::resource('posts', 'PostController');
 	Route::get('trashed-posts', 'PostController@trashed')->name('posts.trashed');
 	Route::put('restore-post/{post}', 'PostController@restore')->name('post.restore');

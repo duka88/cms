@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tag;
 use App\Http\Requests\Tag\CreateTagRequest;
 use App\Http\Requests\Tag\UpdateTagRequest;
+use App\Http\Resources\TagResource;
 
 class TagController extends Controller
 {
@@ -15,6 +16,13 @@ class TagController extends Controller
         $tags = Tag::paginate(15);
 
         return view('tags.index')->with('tags', $tags);
+    }
+
+    public function all_tags(){
+
+        $tags = Tag::all();
+
+        return TagResource::collection($tags);
     }
 
     /**
@@ -44,6 +52,20 @@ class TagController extends Controller
         session()->flash('success', 'Tag created successfully.');
 
         return redirect(route('tags.index'));
+
+
+    }
+
+    public function api_store(CreateTagRequest $request){
+        
+
+       $tag =  Tag::create([
+           'name' => $request->name
+        ]);
+
+       
+
+        return  new TagResource($tag);
 
 
     }

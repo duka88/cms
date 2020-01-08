@@ -12,7 +12,7 @@
 
   		<form 
   		action="{{ isset($post) ? route('posts.update', $post->id) : route('posts.store')}}" 
-  		 method="POST" enctype="multipart/form-data">
+  		 method="POST" enctype="multipart/form-data" id="app">
        
            @csrf
             
@@ -25,19 +25,19 @@
             @endif 
         <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" value="{{ isset($post) ? $post->name : ''}}" 
+          <input type="text" value="{{ isset($post) ? $post->name : old('name') }}" 
            id="name" class="form-control" name="name">
         </div>
 
         <div class="form-group">
           <label for="slug">Slug</label>
-          <input type="text" value="{{ isset($post) ? $post->slug : ''}}" 
+          <input type="text" value="{{ isset($post) ? $post->slug : old('slug')}}" 
            id="slug" class="form-control" name="slug">
         </div>
 
   			<div class="form-group">
   				<label for="title">Title</label>
-  				<input type="text" value="{{ isset($post) ? $post->title : ''}}" 
+  				<input type="text" value="{{ isset($post) ? $post->title : old('title')}}" 
   				 id="title" class="form-control" name="title">
   			</div>
 
@@ -45,7 +45,7 @@
         <div class="form-group">
           <label for="meta_description">Meta Description</label>
           <textarea rows='3' 
-           id="meta_description" class="form-control" name="meta_description">{{ isset($post) ? $post->meta_description : ''}}
+           id="meta_description" class="form-control" name="meta_description">{{ isset($post) ? $post->meta_description : old('meta_description')}}
            </textarea>
         </div>
 
@@ -55,63 +55,15 @@
            <textarea  id="content" name="content" class="form-control">
              @if(isset($post)) 
                {{ $post->content }}
+
+             @else
+             {{old('content')}}  
              @endif  
            </textarea> 
         </div>
-
-        <div class="form-group">
-          <label for="category_id">Category</label>
-          <select type="date"  
-           id="category_id" class="form-control" name="category_id">
-             
-             @foreach($categories as $category)
-
-             <option value="{{$category->id}}"
-
-               @if(isset($post))
-
-                 @if($category->id == $post->category_id)
-
-                 selected
-
-               @endif
-             @endif
-
-              >
-               {{$category->name}}
-             </option>
-
-             @endforeach
-
-           </select>
-        </div>
-
-        <div class="form-group">
-          <label for="tag_id">Tags</label>
-          <select type="date"  
-           id="tag_id" class="form-control" name="tag_id[]" multiple>
-             
-             @foreach($tags as $tag)
-
-             <option value="{{$tag->id}}"
-
-               @if(isset($post))
-
-                 @if($post->hasTag($tag->id))
-
-                 selected
-
-               @endif
-             @endif
-
-              >
-               {{$tag->name}}
-             </option>
-
-             @endforeach
-
-           </select>
-        </div>
+     
+        <vue-categories :cat_id="{{isset($post) ? $post->category_id : ''}}"></vue-categories>
+        <vue-tags :tag_id="{{$post->tags}}"></vue-tags>
 
         <div class="form-group">
           <label for="published_at">Published at</label>
