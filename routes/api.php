@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware(['Cors'])->group(function(){
+	Route::post('send-mail', 'MailController@contact_mail');
+	Route::get('posts', 'PostController@all_posts');
+	Route::get('post/{slug}', 'PostController@post_single');
+
+});
+

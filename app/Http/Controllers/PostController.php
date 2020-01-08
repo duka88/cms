@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\Post\PostCreateRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
+use App\Http\Resources\PostResource;
 use App\Post;
 use App\Tag;
 use App\Category;
@@ -39,6 +40,20 @@ class PostController extends Controller
         
 
         return view('posts.index')->with('posts', $posts);
+    }
+
+    public function all_posts(){
+
+          $posts = Post::all();
+
+          return PostResource::collection($posts);
+    }
+
+      public function post_single($slug){
+
+          $post = Post::where('slug', $slug)->first();
+
+          return new PostResource($post);
     }
 
     /**
@@ -106,6 +121,7 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
+    
 
          return view('posts.create')->with('post', $post)->with('categories', $categories)->with('tags', $tags);;
     }
@@ -119,11 +135,11 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post){
 
- 
+    
    
         $data = $request->only([ 
             'title', 'name', 'slug', 'meta_description',
-            'content', 'image', 'category_id', 'published_at', 'category_id' ]);
+            'content', 'image', 'category_id', 'published_at' ]);
 
         if($request->hasFile('image')){
 
