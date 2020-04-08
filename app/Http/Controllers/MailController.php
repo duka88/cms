@@ -26,7 +26,7 @@ class MailController extends Controller
      	return 'success';
      }
 
-
+  }
 
 }
  
