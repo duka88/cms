@@ -18,7 +18,7 @@ class MailController extends Controller
        ];
    
 
-    Mail::to('your_receiver_email@gmail.com')->send(new P8Mail($details));
+    Mail::to('djankov88@gmail.com')->send(new P8Mail($details));
 
      if (Mail::failures()) {
         return 'error';
