@@ -30,6 +30,7 @@ class P8Mail extends Mailable
     public function build()
     {
        return $this->subject('Passage8.com')
-                    ->view('email.P8Mail');
+                    ->view('email.P8Mail')
+                    ->with('details' ,$this->details);
     }
 }
