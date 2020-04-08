@@ -17,6 +17,7 @@ class MailController extends Controller
 
        ];
    
+
     Mail::to('your_receiver_email@gmail.com')->send(new P8Mail($details));
 
      if (Mail::failures()) {
@@ -26,6 +27,6 @@ class MailController extends Controller
      }
 
 
-    }
+
 }
  
