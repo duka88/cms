@@ -14,8 +14,8 @@
   				<th>#</th>
   				<th>Name</th>
   				<th>Count</th>
-  				<th></th>
-          <th></th>
+  				<th>Actions</th>
+          
   			</thead>
   			<tbody>
 
@@ -31,17 +31,17 @@
             {{$tag->posts->count()}}
             </td>
   					<td>
-  						<a href="{{ route('tags.edit', $tag->id)}}" class="btn btn-info btn-sm">
-  						Edit</a>
-  					</td>
-  					<td>
-               <form action="{{route('tags.destroy', $tag->id)}}" method="POST" id="deleteForm">
-                   @csrf
-                   @method('DELETE')
-  					       <button type="submit" class="btn btn-danger btn-sm " >Delete</button>
-           
-                </form>
-					
+              <div class="d-flex">
+    						<a href="{{ route('tags.edit', $tag->id)}}" class="btn btn-info btn-sm text-white mr-2">
+    						Edit</a>
+    				
+                 <form action="{{route('tags.destroy', $tag->id)}}" method="POST" id="deleteForm">
+                     @csrf
+                     @method('DELETE')
+    					       <button type="submit" class="btn btn-danger btn-sm text-white" >Delete</button>
+             
+                  </form>
+					    </div>
   					</td>
   				</tr>
   			@endforeach	

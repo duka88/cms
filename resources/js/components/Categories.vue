@@ -2,27 +2,34 @@
     <div class="form-group">
         <label>Category</label>
         <select type="date" id="category_id" class="form-control" name="category_id">
-            <option v-for="category in categories" :value="category.id"
-            :selected="cat_id == category.id ">{{category.name}} </option>
+            <option v-for="category in categories" :value="category.id" :selected="cat_id === category.id ">{{category.name}} </option>
         </select>
-        <label for="addTag " class="mt-2">Add Category</label>
-        <input class="form-control" type="text" name="addCategory" v-model="category">
-        <div v-if="errors.length > 0" class="alert alert-danger mt-2">
-            <ul class="list-group">
-                <li v-for="error in errors" class="list-group-item text-danger">{{error}}</li>
-            </ul>
+        <div class="w-100 d-flex justify-content-end ">
+            <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Add New Category</p>
         </div>
-        <div v-if="success" class="alert alert-success mt-2">
-            <ul class="list-group">
-                <li class="list-group-item text-success">{{success}}</li>
-            </ul>
+        <div v-if="add" class="border p-2">
+            <div class="w-100 d-flex justify-content-between ">
+                <label for="addTag " class="mt-2">Add Category</label>
+                <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Close</p>
+            </div>
+            <input class="form-control" type="text" name="addCategory" v-model="category">
+            <div v-if="errors.length > 0" class="alert alert-danger mt-2">
+                <ul class="list-group">
+                    <li v-for="error in errors" class="list-group-item text-danger">{{error}}</li>
+                </ul>
+            </div>
+            <div v-if="success" class="alert alert-success mt-2">
+                <ul class="list-group">
+                    <li class="list-group-item text-success">{{success}}</li>
+                </ul>
+            </div>
+            <p @click="addCategory()" class="btn btn-sm btn-success mt-2">Add Category</p>
         </div>
-        <p @click="addCategory()" class="btn btn-sm btn-success mt-2">Add Category</p>
     </div>
 </template>
 <script>
 export default {
- props:['cat_id'],
+    props: ['cat_id'],
     data() {
         return {
             category: '',
@@ -30,6 +37,8 @@ export default {
             errors: [],
             success: '',
             submit: true,
+            add: false
+
         }
     },
     methods: {

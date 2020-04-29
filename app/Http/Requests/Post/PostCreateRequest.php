@@ -30,6 +30,7 @@ class PostCreateRequest extends FormRequest
            'meta_description' => 'required',
            'category_id' => 'required',
            'content' => 'required',
+          
 
         ];
     }

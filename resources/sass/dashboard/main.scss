@@ -37,3 +37,26 @@
         z-index: 999;
     }
 }
+
+.active {
+    background: $blue;
+    color: $white;
+
+    a {
+        color: $white;
+    }
+
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.list-group-item {
+    cursor: pointer;
+
+}
+
+.pointer{
+    cursor: pointer;
+}

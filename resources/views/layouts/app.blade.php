@@ -90,25 +90,10 @@
 
             @endif
            
-           
+         
            <div class="row">
              @auth
-               <div class="col-3">
-                   <ul class="list-group">
-                       <li class="list-group-item">
-                        <a href="{{route('posts.index')}}">Posts</a>
-                      </li>
-                     <li class="list-group-item">
-                        <a href="{{route('posts.trashed')}}">Trashed Posts</a>
-                      </li>
-                       <li class="list-group-item">
-                        <a href="{{route('categories.index')}}">Categories</a>
-                     </li>
-                      <li class="list-group-item">
-                        <a href="{{route('tags.index')}}">Tags</a>
-                     </li>
-                   </ul>
-               </div>  
+                 @include('partials.admin_nav')  
 
                  <div class="col-9">
                   @yield('content')

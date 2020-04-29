@@ -62,8 +62,8 @@
            </textarea> 
         </div>
      
-        <vue-categories :cat_id="{{isset($post) ? $post->category_id : ''}}"></vue-categories>
-        <vue-tags :tag_id="{{$post->tags}}"></vue-tags>
+        <vue-categories :cat_id="{{isset($post) ? $post->category_id : 0}}"></vue-categories>
+        <vue-tags :tag_id="{{isset($post) ? $post->tags : 0}}"></vue-tags>
 
         <div class="form-group">
           <label for="published_at">Published at</label>

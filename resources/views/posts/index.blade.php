@@ -19,8 +19,8 @@
   				<th>#</th>
   				<th>Name</th>
           <th>Category</th>
-  				<th></th>
-  				<th></th>
+  				<th>Actions</th>
+  	
   			</thead>
   			<tbody>
 
@@ -39,33 +39,34 @@
               </a>             
             </td>
   					<td>
-             @if(!$post->trashed())              
-    						<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info btn-sm">
-    						Edit</a>
+              <div class="d-flex">
+                 @if(!$post->trashed())              
+        						<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-info btn-sm mr-2 text-white">
+        						Edit</a>
 
-              @else      
-                <form action="{{ route('post.restore', $post->id) }}" method="POST">
+                  @else      
+                    <form action="{{ route('post.restore', $post->id) }}" method="POST">
 
-                  @csrf
-                  @method('PUT')
-                  
-                   <button type="submit" class="btn btn-info btn-sm text-white">
-                Restore</button>
-                </form>        
-               
+                      @csrf
+                      @method('PUT')
+                      
+                       <button type="submit" class="btn btn-info btn-sm text-white mr-2">
+                    Restore</button>
+                    </form>        
+                   
 
-              @endif
-  					</td>
-  					<td>
-              <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                   <button type="submit" class="btn btn-danger btn-sm " >
-                     {{$post->trashed() ? 'Delete' : 'Trash'}} 
-                  </button>
-              </form>
-  					
-  					</td>
+                  @endif
+      				
+                  <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                       <button type="submit" class="btn btn-danger btn-sm " >
+                         {{$post->trashed() ? 'Delete' : 'Trash'}} 
+                      </button>
+                  </form>
+      					 
+      					</td>
+            </div>
   				</tr>
          @empty
           

@@ -21,6 +21,20 @@ window.Vue = require('vue');
 
 Vue.component('vue-categories', require('./components/Categories.vue').default);
 Vue.component('vue-tags', require('./components/Tags.vue').default);
+Vue.component('vue-services', require('./components/Services.vue').default);
+Vue.component('vue-links', require('./components/Links.vue').default);
+Vue.component('vue-types', require('./components/Types.vue').default);
+Vue.component('vue-industry', require('./components/Industry.vue').default);
+Vue.component('name-edit', require('./components/edit_client/NameComponent.vue').default);
+Vue.component('company-edit', require('./components/edit_client/CompanyComponent.vue').default);
+Vue.component('email-edit', require('./components/edit_client/EmailComponent.vue').default);
+Vue.component('industry-edit', require('./components/edit_client/IndustryComponent.vue').default);
+Vue.component('services-edit', require('./components/edit_client/ServicesComponent.vue').default);
+Vue.component('links-edit', require('./components/edit_client/LinksComponent.vue').default);
+Vue.component('budget-edit', require('./components/edit_client/BudgetComponent.vue').default);
+Vue.component('time-edit', require('./components/edit_client/TimeComponent.vue').default);
+Vue.component('credentials-edit', require('./components/edit_client/CredentialsComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

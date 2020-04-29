@@ -13,9 +13,9 @@
   			<thead>
   				<th>#</th>
   				<th>Name</th>
-  				<th>Count</th>
-  				<th></th>
-          <th></th>
+  				<th>Post Count</th>
+  				<th>Actions</th>
+        
   			</thead>
   			<tbody>
 
@@ -31,11 +31,10 @@
               {{$category->posts->count()}}
             </td>
   					<td>
-  						<a href="{{ route('categories.edit', $category->id)}}" class="btn btn-info btn-sm">
+  						<a href="{{ route('categories.edit', $category->id)}}" class="btn btn-info btn-sm mr-2 text-white">
   						Edit</a>
-  					</td>
-  					<td>
-  						<a  class="btn btn-danger btn-sm deleteBtns" id="{{$category->id}}">
+  					
+  						<a  class="btn btn-danger btn-sm deleteBtns text-white" id="{{$category->id}}">
 						  Delete
 						</a>
   					</td>

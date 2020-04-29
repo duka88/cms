@@ -13,7 +13,7 @@ class TagController extends Controller
     
     public function index()
     {
-        $tags = Tag::paginate(15);
+        $tags = Tag::with('posts')->paginate(15);
 
         return view('tags.index')->with('tags', $tags);
     }
@@ -101,11 +101,11 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        $Tag->update([
+        $tag->update([
            'name' => $request->name
         ]);
 
-        $Tag->save();
+        $tag->save();
 
         session()->flash('success', 'Tag updated successfully.');
 
