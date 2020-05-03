@@ -4,9 +4,14 @@
         <select @change="onChange(type)" type="date" id="type_id" class="form-control" name="type_id" v-model="type">
             <option v-for="type in types" :value="type.id">{{type.name}} </option>
         </select>
-        <p @click="add = !add" class="btn btn-sm btn-success mt-2">Add More Types</p>
-        <div v-if="add">
-            <label for="addTag " class="mt-2">Add Type</label>
+        <div class="w-100 d-flex justify-content-end ">
+            <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Add New Type</p>
+        </div>
+        <div v-if="add" class="border p-2">
+            <div class="w-100 d-flex justify-content-between ">
+                <label for="addTag " class="mt-2">Add Type</label>
+                <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Close</p>
+            </div>
             <input class="form-control" type="text" name="addCategory" v-model="type">
             <div v-if="errors.length > 0" class="alert alert-danger mt-2">
                 <ul class="list-group">
@@ -24,7 +29,7 @@
 </template>
 <script>
 export default {
-  
+
     data() {
         return {
             add: false,

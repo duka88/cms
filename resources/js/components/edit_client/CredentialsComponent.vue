@@ -5,19 +5,22 @@
                 <b>{{credential.name}}: </b>{{credential.value}}
             </p>
         </div>
-        <div v-else class="mb-0 d-flex  align-items-center">
-            <span>Name: </span><input v-model="name" type="text">
-            <span>Value: </span><input v-model="value" type="text">
-            <p v-for="(credential, i) in vCredentials">
+        <div v-else class="mb-0 ">
+            <label>Name: </label>
+            <input v-model="name" type="text" class="form-control mb-2">
+            <label>Value: </label>
+            <input v-model="value" type="text" class="form-control">
+            <p v-for="(credential, i) in vCredentials" class="m-0">
                 <span><b>{{credential.name}}: </b>{{credential.value}}
                     <span @click="removeCard(i)" class="ml-3 pointer"><b>X</b></span></span>
             </p>
-            <span @click="addCrad()" class=" ml-2 btn btn-success btn-sm ">Add Credantial</span>
-            <span @click="submit()" class=" ml-2 btn btn-success btn-sm ">Ok</span>
+            
+            <span @click="addCrad()" class=" mt-2 btn btn-success btn-sm ">Add Credantial</span>
+            <span @click="submit()" class=" mt-2 btn btn-success btn-sm ">Ok</span>
         </div>
         <span v-if="!edit" @click="edit = true" class="ml-4 btn btn-primary btn-sm text-white">Edit</span>
         <span v-else @click="close()" class=" ml-4 btn btn-danger btn-sm ">Cancel</span>
-        <span class="w-100 text-danger" v-for="error in errors">{{error[0]}}</span>
+        <span class="w-100 text-danger" v-for="error in errors">{{error}}</span>
     </div>
 </template>
 <script>

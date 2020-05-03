@@ -4,10 +4,13 @@
             <p class="mb-0 w-100"> <span class="text-primary">Curent:</span> {{vCurent | numFormat}} </p>
             <p class="mb-0 w-100"><span class="text-danger">Spent:</span> {{vSurent | numFormat}}</p>
         </div>
-        <p v-else class="mb-0 d-flex  align-items-center">
-            <span>Curent: </span><input v-model="vCurent" type="number" min="0">
-            <span>Spent: </span><input v-model="vSurent" type="number" min="0">
-            <span @click="submit()" class=" ml-2 btn btn-success btn-sm ">Ok</span>
+        <p v-else class="mb-0 ">
+
+            <label>Curent: </label>
+            <input v-model="vCurent" type="number" min="0" class="form-control mb-2">
+            <label>Spent: </label>
+            <input v-model="vSurent" type="number" min="0" class="form-control">
+            <span @click="submit()" class=" mt-2 btn btn-success btn-sm ">Ok</span>
         </p>
         <span v-if="!edit" @click="edit = true" class="ml-4 btn btn-primary btn-sm text-white">Edit</span>
         <span v-else @click="close()" class=" ml-4 btn btn-danger btn-sm ">Cancel</span>

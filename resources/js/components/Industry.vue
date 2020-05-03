@@ -4,9 +4,14 @@
         <select type="date" id="industry_id" class="form-control" name="industry_id">
             <option v-for="industry in industries" :value="industry.id" :selected="ind_id === industry.id ">{{industry.name}} </option>
         </select>
-        <p @click="add = !add" class="btn btn-sm btn-success mt-2">Add More Industry</p>
-        <div  v-if="add">
-            <label for="addTag " class="mt-2">Add industry</label>
+        <div class="w-100 d-flex justify-content-end ">
+            <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Add New Industry</p>
+        </div>
+        <div v-if="add" class="border p-2">
+            <div class="w-100 d-flex justify-content-between ">
+                <label for="addTag " class="mt-2">Add Industry</label>
+                <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Close</p>
+            </div>
             <input class="form-control" type="text" name="addindustry" v-model="industry">
             <div v-if="errors.length > 0" class="alert alert-danger mt-2">
                 <ul class="list-group">
@@ -47,7 +52,7 @@ export default {
                 axios.post('/store_industry', {
                         name: this.industry
                     })
-                    .then(({ data }) => {                      
+                    .then(({ data }) => {
                         this.submit = true;
                         this.success = `industry "${data.data.name}" added`;
                         this.industries.push(data.data);

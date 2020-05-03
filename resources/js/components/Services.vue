@@ -4,9 +4,14 @@
         <vue-multiselect v-model="selected" :options="services" :multiple=true track-by="name" value="id" label="name" :close-on-select=false :clear-on-select=false :preserve-search=false>
         </vue-multiselect>
         <input v-for="service in selected" type="hidden" name="service_id[]" :value="service.id">
-        <p @click="add = !add" class="btn btn-sm btn-success mt-2">Add More Servises</p>
-        <div v-if="add">
-            <label for="addService " class="mt-2">Add Service</label>
+        <div class="w-100 d-flex justify-content-end ">
+            <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Add New Service</p>
+        </div>
+        <div v-if="add" class="border p-2">
+            <div class="w-100 d-flex justify-content-between ">
+                <label for="addTag " class="mt-2">Add Service</label>
+                <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Close</p>
+            </div>
             <input class="form-control" type="text" name="addService" v-model="service">
             <div v-if="errors.length > 0" class="alert alert-danger mt-2">
                 <ul class="list-group">

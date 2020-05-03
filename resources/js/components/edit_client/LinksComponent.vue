@@ -29,7 +29,7 @@
         </div>
         <span v-if="!edit" @click="edit = true" class="ml-4 btn btn-primary btn-sm text-white">Edit</span>
         <span v-else @click="close()" class=" ml-4 btn btn-danger btn-sm ">Cancel</span>
-        <span class="w-100 text-danger" v-for="error in errors">{{error[0]}}</span>
+        <span class="w-100 text-danger" v-for="error in errors">{{error}}</span>
     </div>
 </template>
 <script>
@@ -80,10 +80,10 @@ export default {
             this.eLinks.splice(i, 1);
         },
         validation() {
-            if (!this.eLinks) {
+            if (!this.link) {
                 this.errors.push('Link is required')
             }
-            if (!this.eLinks) {
+            if (!this.type) {
                 this.errors.push('Type is required')
             }
         },

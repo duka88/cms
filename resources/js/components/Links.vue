@@ -1,6 +1,6 @@
 <template>
-    <div class="form-group">
-        <label>Links</label>
+    <div class="form-group border p-2"">
+        <p>Links</p>
         <input v-for="link  in links" :value="JSON.stringify(links)" type="hidden" name="addlink[]">
         <label for="addTag " class="mt-2">Add Link</label>
         <input class="form-control" type="text" v-model="link">

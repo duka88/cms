@@ -1955,6 +1955,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['ind_id'],
   data: function data() {
@@ -2096,6 +2101,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2342,6 +2352,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2411,6 +2426,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -2547,6 +2565,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -2745,6 +2766,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['ind_id', 'client_id', 'current'],
   data: function data() {
@@ -2757,7 +2786,7 @@ __webpack_require__.r(__webpack_exports__);
       submit: true,
       edit: false,
       industryEdit: {
-        id: '',
+        id: this.ind_id,
         name: this.current
       }
     };
@@ -2918,11 +2947,11 @@ __webpack_require__.r(__webpack_exports__);
       this.eLinks.splice(i, 1);
     },
     validation: function validation() {
-      if (!this.eLinks) {
+      if (!this.link) {
         this.errors.push('Link is required');
       }
 
-      if (!this.eLinks) {
+      if (!this.type) {
         this.errors.push('Type is required');
       }
     },
@@ -3106,6 +3135,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -38576,16 +38609,9 @@ var render = function() {
         attrs: { type: "date", id: "category_id", name: "category_id" }
       },
       _vm._l(_vm.categories, function(category) {
-        return _c(
-          "option",
-          {
-            domProps: {
-              value: category.id,
-              selected: _vm.cat_id === category.id
-            }
-          },
-          [_vm._v(_vm._s(category.name) + " ")]
-        )
+        return _c("option", { domProps: { value: category.id } }, [
+          _vm._v(_vm._s(category.name) + " ")
+        ])
       }),
       0
     ),
@@ -38737,23 +38763,40 @@ var render = function() {
       0
     ),
     _vm._v(" "),
-    _c(
-      "p",
-      {
-        staticClass: "btn btn-sm btn-success mt-2",
-        on: {
-          click: function($event) {
-            _vm.add = !_vm.add
+    _c("div", { staticClass: "w-100 d-flex justify-content-end " }, [
+      _c(
+        "p",
+        {
+          staticClass: "btn btn-sm btn-success mt-2 mb-2",
+          on: {
+            click: function($event) {
+              _vm.add = !_vm.add
+            }
           }
-        }
-      },
-      [_vm._v("Add More Industry")]
-    ),
+        },
+        [_vm._v("Add New Industry")]
+      )
+    ]),
     _vm._v(" "),
     _vm.add
-      ? _c("div", [
-          _c("label", { staticClass: "mt-2", attrs: { for: "addTag " } }, [
-            _vm._v("Add industry")
+      ? _c("div", { staticClass: "border p-2" }, [
+          _c("div", { staticClass: "w-100 d-flex justify-content-between " }, [
+            _c("label", { staticClass: "mt-2", attrs: { for: "addTag " } }, [
+              _vm._v("Add Industry")
+            ]),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                staticClass: "btn btn-sm btn-success mt-2 mb-2",
+                on: {
+                  click: function($event) {
+                    _vm.add = !_vm.add
+                  }
+                }
+              },
+              [_vm._v("Close")]
+            )
           ]),
           _vm._v(" "),
           _c("input", {
@@ -38845,9 +38888,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "form-group" },
+    { staticClass: "form-group border p-2" },
     [
-      _c("label", [_vm._v("Links")]),
+      _c("p", [_vm._v("Links")]),
       _vm._v(" "),
       _vm._l(_vm.links, function(link) {
         return _c("input", {
@@ -39003,25 +39046,46 @@ var render = function() {
         })
       }),
       _vm._v(" "),
-      _c(
-        "p",
-        {
-          staticClass: "btn btn-sm btn-success mt-2",
-          on: {
-            click: function($event) {
-              _vm.add = !_vm.add
+      _c("div", { staticClass: "w-100 d-flex justify-content-end " }, [
+        _c(
+          "p",
+          {
+            staticClass: "btn btn-sm btn-success mt-2 mb-2",
+            on: {
+              click: function($event) {
+                _vm.add = !_vm.add
+              }
             }
-          }
-        },
-        [_vm._v("Add More Servises")]
-      ),
+          },
+          [_vm._v("Add New Service")]
+        )
+      ]),
       _vm._v(" "),
       _vm.add
-        ? _c("div", [
+        ? _c("div", { staticClass: "border p-2" }, [
             _c(
-              "label",
-              { staticClass: "mt-2", attrs: { for: "addService " } },
-              [_vm._v("Add Service")]
+              "div",
+              { staticClass: "w-100 d-flex justify-content-between " },
+              [
+                _c(
+                  "label",
+                  { staticClass: "mt-2", attrs: { for: "addTag " } },
+                  [_vm._v("Add Service")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "btn btn-sm btn-success mt-2 mb-2",
+                    on: {
+                      click: function($event) {
+                        _vm.add = !_vm.add
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                )
+              ]
             ),
             _vm._v(" "),
             _c("input", {
@@ -39322,23 +39386,40 @@ var render = function() {
       0
     ),
     _vm._v(" "),
-    _c(
-      "p",
-      {
-        staticClass: "btn btn-sm btn-success mt-2",
-        on: {
-          click: function($event) {
-            _vm.add = !_vm.add
+    _c("div", { staticClass: "w-100 d-flex justify-content-end " }, [
+      _c(
+        "p",
+        {
+          staticClass: "btn btn-sm btn-success mt-2 mb-2",
+          on: {
+            click: function($event) {
+              _vm.add = !_vm.add
+            }
           }
-        }
-      },
-      [_vm._v("Add More Types")]
-    ),
+        },
+        [_vm._v("Add New Type")]
+      )
+    ]),
     _vm._v(" "),
     _vm.add
-      ? _c("div", [
-          _c("label", { staticClass: "mt-2", attrs: { for: "addTag " } }, [
-            _vm._v("Add Type")
+      ? _c("div", { staticClass: "border p-2" }, [
+          _c("div", { staticClass: "w-100 d-flex justify-content-between " }, [
+            _c("label", { staticClass: "mt-2", attrs: { for: "addTag " } }, [
+              _vm._v("Add Type")
+            ]),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                staticClass: "btn btn-sm btn-success mt-2 mb-2",
+                on: {
+                  click: function($event) {
+                    _vm.add = !_vm.add
+                  }
+                }
+              },
+              [_vm._v("Close")]
+            )
           ]),
           _vm._v(" "),
           _c("input", {
@@ -39447,8 +39528,9 @@ var render = function() {
               _vm._v(" " + _vm._s(_vm._f("numFormat")(_vm.vSurent)))
             ])
           ])
-        : _c("p", { staticClass: "mb-0 d-flex  align-items-center" }, [
-            _c("span", [_vm._v("Curent: ")]),
+        : _c("p", { staticClass: "mb-0 " }, [
+            _c("label", [_vm._v("Curent: ")]),
+            _vm._v(" "),
             _c("input", {
               directives: [
                 {
@@ -39458,6 +39540,7 @@ var render = function() {
                   expression: "vCurent"
                 }
               ],
+              staticClass: "form-control mb-2",
               attrs: { type: "number", min: "0" },
               domProps: { value: _vm.vCurent },
               on: {
@@ -39470,7 +39553,8 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v("Spent: ")]),
+            _c("label", [_vm._v("Spent: ")]),
+            _vm._v(" "),
             _c("input", {
               directives: [
                 {
@@ -39480,6 +39564,7 @@ var render = function() {
                   expression: "vSurent"
                 }
               ],
+              staticClass: "form-control",
               attrs: { type: "number", min: "0" },
               domProps: { value: _vm.vSurent },
               on: {
@@ -39495,7 +39580,7 @@ var render = function() {
             _c(
               "span",
               {
-                staticClass: " ml-2 btn btn-success btn-sm ",
+                staticClass: " mt-2 btn btn-success btn-sm ",
                 on: {
                   click: function($event) {
                     return _vm.submit()
@@ -39686,9 +39771,10 @@ var render = function() {
           )
         : _c(
             "div",
-            { staticClass: "mb-0 d-flex  align-items-center" },
+            { staticClass: "mb-0 " },
             [
-              _c("span", [_vm._v("Name: ")]),
+              _c("label", [_vm._v("Name: ")]),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -39698,6 +39784,7 @@ var render = function() {
                     expression: "name"
                   }
                 ],
+                staticClass: "form-control mb-2",
                 attrs: { type: "text" },
                 domProps: { value: _vm.name },
                 on: {
@@ -39710,7 +39797,8 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("span", [_vm._v("Value: ")]),
+              _c("label", [_vm._v("Value: ")]),
+              _vm._v(" "),
               _c("input", {
                 directives: [
                   {
@@ -39720,6 +39808,7 @@ var render = function() {
                     expression: "value"
                   }
                 ],
+                staticClass: "form-control",
                 attrs: { type: "text" },
                 domProps: { value: _vm.value },
                 on: {
@@ -39733,7 +39822,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm._l(_vm.vCredentials, function(credential, i) {
-                return _c("p", [
+                return _c("p", { staticClass: "m-0" }, [
                   _c("span", [
                     _c("b", [_vm._v(_vm._s(credential.name) + ": ")]),
                     _vm._v(_vm._s(credential.value) + "\n                "),
@@ -39756,7 +39845,7 @@ var render = function() {
               _c(
                 "span",
                 {
-                  staticClass: " ml-2 btn btn-success btn-sm ",
+                  staticClass: " mt-2 btn btn-success btn-sm ",
                   on: {
                     click: function($event) {
                       return _vm.addCrad()
@@ -39769,7 +39858,7 @@ var render = function() {
               _c(
                 "span",
                 {
-                  staticClass: " ml-2 btn btn-success btn-sm ",
+                  staticClass: " mt-2 btn btn-success btn-sm ",
                   on: {
                     click: function($event) {
                       return _vm.submit()
@@ -39810,7 +39899,7 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.errors, function(error) {
         return _c("span", { staticClass: "w-100 text-danger" }, [
-          _vm._v(_vm._s(error[0]))
+          _vm._v(_vm._s(error))
         ])
       })
     ],
@@ -39954,78 +40043,111 @@ var render = function() {
             _vm._v("\n        " + _vm._s(_vm.industryEdit.name) + "\n    ")
           ])
         : _c("div", [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.industryEdit,
-                    expression: "industryEdit"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "date", id: "industry_id", name: "industry_id" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.industryEdit = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              _vm._l(_vm.industries, function(industry) {
-                return _c(
-                  "option",
-                  {
-                    domProps: {
-                      value: industry,
-                      selected: _vm.ind_id == industry.id
+            _c("div", { staticClass: "mb-0 d-flex  align-items-center" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.industryEdit,
+                      expression: "industryEdit"
                     }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "date",
+                    id: "industry_id",
+                    name: "industry_id"
                   },
-                  [_vm._v(_vm._s(industry.name) + " ")]
-                )
-              }),
-              0
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass: " ml-2 btn btn-success btn-sm ",
-                on: {
-                  click: function($event) {
-                    return _vm.submitEdit()
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.industryEdit = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
                   }
-                }
-              },
-              [_vm._v("Ok")]
-            ),
-            _vm._v(" "),
-            _c(
-              "p",
-              {
-                staticClass: "btn btn-sm btn-success mb-0",
-                on: {
-                  click: function($event) {
-                    _vm.add = !_vm.add
+                },
+                _vm._l(_vm.industries, function(industry) {
+                  return _c(
+                    "option",
+                    {
+                      domProps: {
+                        value: industry,
+                        selected: _vm.ind_id === industry.id
+                      }
+                    },
+                    [_vm._v(_vm._s(industry.name) + " ")]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: " ml-2 btn btn-success btn-sm ",
+                  on: {
+                    click: function($event) {
+                      return _vm.submitEdit()
+                    }
                   }
-                }
-              },
-              [_vm._v("Add More Industry")]
-            ),
+                },
+                [_vm._v("Ok")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "w-100 d-flex justify-content-end " }, [
+              _c(
+                "p",
+                {
+                  staticClass: "btn btn-sm btn-success mt-2 mb-2",
+                  on: {
+                    click: function($event) {
+                      _vm.add = !_vm.add
+                    }
+                  }
+                },
+                [_vm._v("Add New Industry")]
+              )
+            ]),
             _vm._v(" "),
             _vm.add
-              ? _c("div", [
+              ? _c("div", { staticClass: "border p-2" }, [
+                  _c(
+                    "div",
+                    { staticClass: "w-100 d-flex justify-content-between " },
+                    [
+                      _c(
+                        "label",
+                        { staticClass: "mt-2", attrs: { for: "addTag " } },
+                        [_vm._v("Add Industry")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticClass: "btn btn-sm btn-success mt-2 mb-2",
+                          on: {
+                            click: function($event) {
+                              _vm.add = !_vm.add
+                            }
+                          }
+                        },
+                        [_vm._v("Close")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -40035,6 +40157,7 @@ var render = function() {
                         expression: "industry"
                       }
                     ],
+                    staticClass: "form-control",
                     attrs: { type: "text", name: "addindustry" },
                     domProps: { value: _vm.industry },
                     on: {
@@ -40079,7 +40202,7 @@ var render = function() {
                   _c(
                     "p",
                     {
-                      staticClass: "btn btn-sm btn-success mb-0",
+                      staticClass: "btn btn-sm btn-success mt-1 mb-0",
                       on: {
                         click: function($event) {
                           return _vm.addIndustry()
@@ -40301,7 +40424,7 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.errors, function(error) {
         return _c("span", { staticClass: "w-100 text-danger" }, [
-          _vm._v(_vm._s(error[0]))
+          _vm._v(_vm._s(error))
         ])
       })
     ],
@@ -40574,8 +40697,9 @@ var render = function() {
               _vm._v(" " + _vm._s(_vm._f("numFormat")(_vm.vFinshid)))
             ])
           ])
-        : _c("p", { staticClass: "mb-0 d-flex  align-items-center" }, [
-            _c("span", [_vm._v("Started: ")]),
+        : _c("p", { staticClass: "mb-0 " }, [
+            _c("label", [_vm._v("Started: ")]),
+            _vm._v(" "),
             _c("input", {
               directives: [
                 {
@@ -40585,6 +40709,7 @@ var render = function() {
                   expression: "vStarted"
                 }
               ],
+              staticClass: "form-control mb-2",
               attrs: { type: "date", min: "0" },
               domProps: { value: _vm.vStarted },
               on: {
@@ -40597,7 +40722,8 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v("Time Frame: ")]),
+            _c("label", [_vm._v("Time Frame: ")]),
+            _vm._v(" "),
             _c("input", {
               directives: [
                 {
@@ -40607,6 +40733,7 @@ var render = function() {
                   expression: "vTimeFrame"
                 }
               ],
+              staticClass: "form-control mb-2",
               attrs: { type: "date", min: "0" },
               domProps: { value: _vm.vTimeFrame },
               on: {
@@ -40619,7 +40746,8 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("span", [_vm._v("Finshid: ")]),
+            _c("label", [_vm._v("Finshid: ")]),
+            _vm._v(" "),
             _c("input", {
               directives: [
                 {
@@ -40629,6 +40757,7 @@ var render = function() {
                   expression: "vFinshid"
                 }
               ],
+              staticClass: "form-control",
               attrs: { type: "date", min: "0" },
               domProps: { value: _vm.vFinshid },
               on: {
@@ -40644,7 +40773,7 @@ var render = function() {
             _c(
               "span",
               {
-                staticClass: " ml-2 btn btn-success btn-sm ",
+                staticClass: " mt-2 btn btn-success btn-sm ",
                 on: {
                   click: function($event) {
                     return _vm.submit()

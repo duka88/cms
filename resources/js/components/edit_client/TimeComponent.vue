@@ -5,11 +5,15 @@
             <p class="mb-0 w-100"> <span class="text-primary">Time Frame:</span> {{vTimeFrame | numFormat }} </p>
             <p class="mb-0 w-100"><span class="text-danger">Finshid:</span> {{vFinshid | numFormat}}</p>
         </div>
-        <p v-else class="mb-0 d-flex  align-items-center">
-            <span>Started: </span><input v-model="vStarted" type="date" min="0">
-            <span>Time Frame: </span><input v-model="vTimeFrame" type="date" min="0">
-            <span>Finshid: </span><input v-model="vFinshid" type="date" min="0">
-            <span @click="submit()" class=" ml-2 btn btn-success btn-sm ">Ok</span>
+        <p v-else class="mb-0 ">
+
+            <label>Started: </label>
+            <input v-model="vStarted" type="date" min="0" class="form-control mb-2">
+            <label>Time Frame: </label>
+            <input v-model="vTimeFrame" type="date" min="0" class="form-control mb-2">
+            <label>Finshid: </label>
+            <input v-model="vFinshid" type="date" min="0" class="form-control">
+            <span @click="submit()" class=" mt-2 btn btn-success btn-sm ">Ok</span>
         </p>
         <span v-if="!edit" @click="edit = true" class="ml-4 btn btn-primary btn-sm text-white">Edit</span>
         <span v-else @click="close()" class=" ml-4 btn btn-danger btn-sm ">Cancel</span>

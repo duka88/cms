@@ -2,7 +2,7 @@
     <div class="form-group">
         <label>Category</label>
         <select type="date" id="category_id" class="form-control" name="category_id">
-            <option v-for="category in categories" :value="category.id" :selected="cat_id === category.id ">{{category.name}} </option>
+            <option v-for="category in categories" :value="category.id" >{{category.name}} </option>
         </select>
         <div class="w-100 d-flex justify-content-end ">
             <p @click="add = !add" class="btn btn-sm btn-success mt-2 mb-2">Add New Category</p>
